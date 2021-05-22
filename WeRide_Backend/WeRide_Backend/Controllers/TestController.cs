@@ -15,11 +15,13 @@ namespace WeRide_Backend.Controllers
     public class TestController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private static string Host = "weride-postgres-server.postgres.database.azure.com";
-        private static string User = "WeRide_Corporation@weride-postgres-server";
-        private static string DBname = "postgres";
-        private static string Password = "TaylorSwift2021";
-        private static string Port = "5432";
+
+        //private static string Host = "weride-postgres-server.postgres.database.azure.com";
+        //private static string User = "WeRide_Corporation@weride-postgres-server";
+        //private static string DBname = "postgres";
+        //private static string Password = "TaylorSwift2021";
+        //private static string Port = "5432";
+
         public TestController(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -28,22 +30,26 @@ namespace WeRide_Backend.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            string con = "Server=weride-postgres-server.postgres.database.azure.com,1433;Initial Catalog=postgres;Persist Security Info=False;User ID=WeRide_Corporation@weride-postgres-server;Password=TaylorSwift2021;";
-            string query = @"select DummyData from dbo.Test";
+            string con = "Server=weride-postgres-server.postgres.database.azure.com,5432; User Id=WeRide_Corporation@weride-postgres-server; Database=postgres; Password=TaylorSwift2021; SSL=True";
+            //string con1 = "Database=postgres; Data Source=weride-postgres-server.postgres.database.azure.com; User Id=WeRide_Corporation@weride-postgres-server; Password=TaylorSwift2021";
+            string query = @"
+                    select DummyData from dbo.Test";
             DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString(con);
+            string sqlDataSource = con;
             SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(con
-))
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
             {
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
+
+                    myReader.Close();
                     myCon.Close();
                 }
             }
+
             return new JsonResult(table);
         }
     }
