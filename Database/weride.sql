@@ -20,7 +20,7 @@ CREATE TABLE DRIVER (
     userID CHAR(16),
     carpoolID CHAR(16),
     placeID CHAR(16),
-    PRIMARY KEY(userID, carpoolID, placeID),
+    PRIMARY KEY(carpoolID),
     FOREIGN KEY(userID) REFERENCES USER_ACCOUNT(userID),
     FOREIGN KEY(carpoolID) REFERENCES CARPOOL(carpoolID),
     FOREIGN KEY(placeID) REFERENCES PLACE(placeID));
@@ -32,7 +32,7 @@ CREATE TABLE PASSENGER (
     estimatedPickUpTime TIME,
     approved BOOLEAN,
     timeRequested TIMESTAMP,
-    PRIMARY KEY(userID, carpoolID, placeID),
+    PRIMARY KEY(userID, carpoolID),
     FOREIGN KEY(userID) REFERENCES USER_ACCOUNT(userID),
     FOREIGN KEY(carpoolID) REFERENCES CARPOOL(carpoolID),
     FOREIGN KEY(placeID) REFERENCES PLACE(placeID));
