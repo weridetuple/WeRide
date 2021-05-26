@@ -17,7 +17,7 @@ namespace WeRide_Backend.Controllers
     public class TestController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        
+
         public TestController(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -40,6 +40,7 @@ namespace WeRide_Backend.Controllers
                     myCon.Close();
                 }
             }
+
             return new JsonResult(table);
         }
 
