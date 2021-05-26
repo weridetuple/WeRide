@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Data;
-
+using Npgsql;
+using System.Text;
+using WeRide_Backend.Models;
 namespace WeRide_Backend.Controllers
 {
     [Route("api/[controller]")]
@@ -15,11 +17,7 @@ namespace WeRide_Backend.Controllers
     public class TestController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private static string Host = "weride-postgres-server.postgres.database.azure.com";
-        private static string User = "WeRide_Corporation@weride-postgres-server";
-        private static string DBname = "postgres";
-        private static string Password = "TaylorSwift2021";
-        private static string Port = "5432";
+        
         public TestController(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -28,23 +26,40 @@ namespace WeRide_Backend.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            string con = "Server=weride-postgres-server.postgres.database.azure.com,1433;Initial Catalog=postgres;Persist Security Info=False;User ID=WeRide_Corporation@weride-postgres-server;Password=TaylorSwift2021;";
-            string query = @"select DummyData from dbo.Test";
+            string query = "SELECT * FROM Test";
             DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString(con);
-            SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(con
-))
+            StringBuilder sb = new StringBuilder();
+            using (var myCon = new NpgsqlConnection(_configuration.GetConnectionString("postgres")))
             {
                 myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                using (var myCommand = new NpgsqlCommand(query, myCon))
                 {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
+                    var reader = myCommand.ExecuteReader();
+                    table.Load(reader);
+                    reader.Close();
                     myCon.Close();
                 }
             }
             return new JsonResult(table);
+        }
+
+        [HttpPost]
+        public JsonResult Post(Testcs test)
+        {
+            string query =  "INSERT INTO test values ('" + test.dummyData + "')" ;
+            DataTable table = new DataTable();
+            using (var myCon = new NpgsqlConnection(_configuration.GetConnectionString("postgres")))
+            {
+                myCon.Open();
+                using (var myCommand = new NpgsqlCommand(query, myCon))
+                {
+                    var reader = myCommand.ExecuteReader();
+                    table.Load(reader);
+                    reader.Close();
+                    myCon.Close();
+                }
+            }
+            return new JsonResult("added");
         }
     }
 }
