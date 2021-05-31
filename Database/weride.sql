@@ -9,6 +9,15 @@ CREATE TABLE USER_ACCOUNT (
     rating FLOAT,
     PRIMARY KEY(userID));
 
+CREATE TABLE SCHEDULE (
+    userID CHAR(16),
+    transportationType VARCHAR(10),
+    time TIME,
+    dayOfWeek VARCHAR(10),
+    morningOrEvening CHAR(7),
+    PRIMARY KEY(userID, time, dayOfWeek, morningOrEvening),
+    FOREIGN KEY(userID) REFERENCES USER_ACCOUNT(userID));
+
 CREATE TABLE PHONE (
     phoneNum VARCHAR(15),
     phoneType VARCHAR(10),
@@ -18,23 +27,23 @@ CREATE TABLE PHONE (
 
 CREATE TABLE DRIVER (
     userID CHAR(16),
-    carpoolID CHAR(16),
+    transportationID CHAR(16),
     placeID CHAR(16),
-    PRIMARY KEY(carpoolID),
+    PRIMARY KEY(transportationID),
     FOREIGN KEY(userID) REFERENCES USER_ACCOUNT(userID),
-    FOREIGN KEY(carpoolID) REFERENCES CARPOOL(carpoolID),
+    FOREIGN KEY(transportationID) REFERENCES CARPOOL(transportationID),
     FOREIGN KEY(placeID) REFERENCES PLACE(placeID));
 
 CREATE TABLE PASSENGER (
     userID CHAR(16),
-    carpoolID CHAR(16),
+    transportationID CHAR(16),
     placeID CHAR(16),
     estimatedPickUpTime TIME,
     approved BOOLEAN,
     timeRequested TIMESTAMP,
-    PRIMARY KEY(userID, carpoolID),
+    PRIMARY KEY(userID, transportationID),
     FOREIGN KEY(userID) REFERENCES USER_ACCOUNT(userID),
-    FOREIGN KEY(carpoolID) REFERENCES CARPOOL(carpoolID),
+    FOREIGN KEY(transportationID) REFERENCES CARPOOL(transportationID),
     FOREIGN KEY(placeID) REFERENCES PLACE(placeID));
 
 CREATE TABLE PLACE (
@@ -46,13 +55,18 @@ CREATE TABLE PLACE (
 	zipcode CHAR(5),
     PRIMARY KEY(placeID));
 
-CREATE TABLE CARPOOL (
-    carpoolID CHAR(16),
+CREATE TABLE TRANSPORTATION (
+    transportationID CHAR(16),
     startDate DATE,
     endDate DATE,
     arriveTime TIMESTAMP,
-    carpoolDate TIMESTAMP,
+    dayOfWeek DATE,
+    PRIMARY KEY(transportationID));
+)
+
+CREATE TABLE CARPOOL (
+    transportationID CHAR(16),
     passengerRating FLOAT,
     driverRating FLOAT,
     passengerCount INTEGER,
-    PRIMARY KEY(carpoolID));
+    PRIMARY KEY(transportationID));
