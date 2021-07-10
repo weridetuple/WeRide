@@ -47,12 +47,8 @@ CREATE TABLE PLACE (
     PRIMARY KEY(placeID));
 
 CREATE TABLE CARPOOL (
-    carpoolID CHAR(16),
-    startDate DATE,
-    endDate DATE,
-    arriveTime TIMESTAMP,
-    carpoolDate TIMESTAMP,
-    passengerRating FLOAT,
-    driverRating FLOAT,
-    passengerCount INTEGER,
-    PRIMARY KEY(carpoolID));
+    carpoolid character(16) COLLATE pg_catalog."default" NOT NULL,
+    passengerrating double precision,
+    driverrating double precision,
+    passengercount integer,
+    CONSTRAINT carpool_pkey PRIMARY KEY (carpoolid));
