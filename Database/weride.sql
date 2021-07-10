@@ -14,32 +14,15 @@ CREATE TABLE DRIVER (
     PRIMARY KEY(userID),
     FOREIGN KEY(userID) REFERENCES USER_ACCOUNT(userID));
 
-CREATE TABLE DRIVE_CARPOOL (
-    driverID CHAR(16) NOT NULL,
-    carpoolID CHAR(16) NOT NULL,
-    PRIMARY KEY(driverID, carpoolID),
-    FOREIGN KEY(driverID) REFERENCES USER_ACCOUNT(userID),
-    FOREIGN KEY(carpoolID) REFERENCES CARPOOL(transportationID));
-
 CREATE TABLE PASSENGER (
     userID CHAR(16) NOT NULL,
     PRIMARY KEY(userID),
     FOREIGN KEY(userID) REFERENCES USER_ACCOUNT(userID));
 
-CREATE TABLE TAKE_CARPOOL (
-    passengerID CHAR(16) NOT NULL,
-    carpoolID CHAR(16) NOT NULL,
-    estimatedPickUpTime TIME,
-    approved BOOLEAN,
-    timeRequested TIMESTAMP,
-    PRIMARY KEY(passengerID, carpoolID),
-    FOREIGN KEY(passengerID) REFERENCES USER_ACCOUNT(userID),
-    FOREIGN KEY(carpoolID) REFERENCES CARPOOL(transportationID));
-
 CREATE TABLE CARPOOL (
     transportationID CHAR(16),
     passengerRating FLOAT DEFAULT 5,
-    driverRating FLOAT  DEFAULT 5,
+    driverRating FLOAT DEFAULT 5,
     passengerCount INTEGER,
     PRIMARY KEY(transportationID),
     FOREIGN KEY(transportationID) REFERENCES TRANSPORTATION(transportationID));
@@ -51,15 +34,6 @@ CREATE TABLE TRANSPORTATION (
     estimatePickUpTime TIME,
     currentState VARCHAR(15),
     PRIMARY KEY(transportationID));
-
-CREATE TABLE SCHEDULE_HAS_TRANSPORTATION (
-    userID CHAR(16) NOT NULL,
-    arrivingTime TIME NOT NULL,
-    scheduleDate DATE NOT NULL,
-    morningOrEvening CHAR(7) NOT NULL,
-    transportationID CHAR(16) NOT NULL,
-    #TODO
-)
 
 CREATE TABLE SCHEDULE (
     userID CHAR(16) NOT NULL,
@@ -87,6 +61,23 @@ CREATE TABLE PLACE (
 	zipcode CHAR(5),
     PRIMARY KEY(placeID));
 
+CREATE TABLE DRIVE_CARPOOL (
+    driverID CHAR(16) NOT NULL,
+    carpoolID CHAR(16) NOT NULL,
+    PRIMARY KEY(driverID, carpoolID),
+    FOREIGN KEY(driverID) REFERENCES USER_ACCOUNT(userID),
+    FOREIGN KEY(carpoolID) REFERENCES CARPOOL(transportationID));
+
+CREATE TABLE TAKE_CARPOOL (
+    passengerID CHAR(16) NOT NULL,
+    carpoolID CHAR(16) NOT NULL,
+    estimatedPickUpTime TIME,
+    approved BOOLEAN,
+    timeRequested TIMESTAMP,
+    PRIMARY KEY(passengerID, carpoolID),
+    FOREIGN KEY(passengerID) REFERENCES USER_ACCOUNT(userID),
+    FOREIGN KEY(carpoolID) REFERENCES CARPOOL(transportationID));
+
 CREATE TABLE USER_HAS_HOME (
     userID CHAR(16) NOT NULL,
     placeID CHAR(16) NOT NULL,
@@ -94,6 +85,25 @@ CREATE TABLE USER_HAS_HOME (
     FOREIGN KEY(userID) REFERENCES USER_ACCOUNT(userID),
     FOREIGN KEY(placeID) REFERENCES PLACE(placeID));
 
-CREATE TABLE SCHEDULE_HAS_PLACE (
+CREATE TABLE SCHEDULE_HAS_TRANSPORTATION (
+    userID CHAR(16) NOT NULL,
+    arrivingTime TIME NOT NULL,
+    scheduleDate DATE NOT NULL,
+    arrivalOrDeparture VARCHAR(9) NOT NULL,
+    transportationID CHAR(16) NOT NULL,
+    PRIMARY KEY(userID, transportationID, arrivingTime, scheduleDate, arrivalOrDeparture),
+    FOREIGN KEY(userID) REFERENCES USER_ACCOUNT(userID),
+    FOREIGN KEY(transportationID) REFERENCES TRANSPORTATION(transportationID),
+    FOREIGN KEY(arrivingTime, scheduleDate, arrivalOrDeparture) REFERENCES SCHEDULE(arrivingTime, scheduleDate, arrivalOrDeparture));
 
-)
+CREATE TABLE SCHEDULE_HAS_PLACE (
+    placeID CHAR(16),
+    userID CHAR(16) NOT NULL,
+    arrivingTime TIME NOT NULL,
+    scheduleDate DATE NOT NULL,
+    arrivalOrDeparture VARCHAR(9) NOT NULL,
+    PRIMARY KEY(userID, placeID, arrivingTime, arrivalOrDeparture),
+    FOREIGN KEY(userID) REFERENCES USER_ACCOUNT(userID),
+    FOREIGN KEY(placeID) REFERENCES PLACE(placeID),
+    FOREIGN KEY(arrivingTime, scheduleDate, arrivalOrDeparture) REFERENCES SCHEDULE(arrivingTime, scheduleDate, arrivalOrDeparture));
+
