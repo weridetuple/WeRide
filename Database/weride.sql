@@ -1,5 +1,5 @@
 CREATE TABLE USER_ACCOUNT (
-    userID CHAR(16),
+    userID CHAR(16) NOT NULL,
     email VARCHAR(100),
     firstName VARCHAR(50),
     lastName VARCHAR(50),
@@ -28,7 +28,7 @@ CREATE TABLE CARPOOL (
     FOREIGN KEY(transportationID) REFERENCES TRANSPORTATION(transportationID));
 
 CREATE TABLE TRANSPORTATION (
-    transportationID CHAR(16),
+    transportationID CHAR(16) NOT NULL,
     startDate DATE,
     endDate DATE,
     estimatePickUpTime TIME,
@@ -38,22 +38,22 @@ CREATE TABLE TRANSPORTATION (
 CREATE TABLE SCHEDULE (
     userID CHAR(16) NOT NULL,
     transportationType VARCHAR(10),
-    arrivingTime TIME,
+    arrivingTime TIME NOT NULL, --Arrive at school, departure from school
     scheduleDate DATE,
-    morningOrEvening CHAR(7),
+    arrivalOrDeparture CHAR(9),
     transportationID CHAR(16),
-    PRIMARY KEY(userID, arrivingTime, dayOfWeek, morningOrEvening),
+    PRIMARY KEY(userID, arrivingTime, scheduleDate, arrivalOrDeparture),
     FOREIGN KEY(userID) REFERENCES USER_ACCOUNT(userID));
 
 CREATE TABLE PHONE (
-    phoneNum VARCHAR(15),
+    phoneNum VARCHAR(15) NOT NULL,
     phoneType VARCHAR(10),
-    userID CHAR(16) NOT NULL,
+    userID CHAR(16) NOT NULL NOT NULL,
     PRIMARY KEY(userID, phoneNum),
     FOREIGN KEY(userID) REFERENCES USER_ACCOUNT(userID));
 
 CREATE TABLE PLACE (
-    placeID CHAR(16),
+    placeID CHAR(16) NOT NULL,
     address1 VARCHAR(100),
     address2 VARCHAR(100),
     stateValue VARCHAR(50),
@@ -71,7 +71,6 @@ CREATE TABLE DRIVE_CARPOOL (
 CREATE TABLE TAKE_CARPOOL (
     passengerID CHAR(16) NOT NULL,
     carpoolID CHAR(16) NOT NULL,
-    estimatedPickUpTime TIME,
     approved BOOLEAN,
     timeRequested TIMESTAMP,
     PRIMARY KEY(passengerID, carpoolID),
@@ -97,7 +96,7 @@ CREATE TABLE SCHEDULE_HAS_TRANSPORTATION (
     FOREIGN KEY(arrivingTime, scheduleDate, arrivalOrDeparture) REFERENCES SCHEDULE(arrivingTime, scheduleDate, arrivalOrDeparture));
 
 CREATE TABLE SCHEDULE_HAS_PLACE (
-    placeID CHAR(16),
+    placeID CHAR(16) NOT NULL,
     userID CHAR(16) NOT NULL,
     arrivingTime TIME NOT NULL,
     scheduleDate DATE NOT NULL,
