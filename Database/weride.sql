@@ -23,7 +23,6 @@ CREATE TABLE CARPOOL (
     transportationID CHAR(16),
     passengerRating FLOAT DEFAULT 5,
     driverRating FLOAT DEFAULT 5,
-    passengerCount INTEGER,
     PRIMARY KEY(transportationID),
     FOREIGN KEY(transportationID) REFERENCES TRANSPORTATION(transportationID));
 
