@@ -105,4 +105,3 @@ CREATE TABLE SCHEDULE_HAS_PLACE (
     FOREIGN KEY(userID) REFERENCES USER_ACCOUNT(userID),
     FOREIGN KEY(placeID) REFERENCES PLACE(placeID),
     FOREIGN KEY(arrivingTime, scheduleDate, arrivalOrDeparture) REFERENCES SCHEDULE(arrivingTime, scheduleDate, arrivalOrDeparture));
-
