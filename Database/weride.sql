@@ -39,9 +39,8 @@ CREATE TABLE SCHEDULE (
     userID CHAR(16) NOT NULL,
     transportationType VARCHAR(10),
     arrivingTime TIME NOT NULL, --Arrive at school, departure from school
-    scheduleDate DATE,
-    arrivalOrDeparture CHAR(9),
-    transportationID CHAR(16),
+    scheduleDate DATE NOT NULL,
+    arrivalOrDeparture CHAR(9) NOT NULL,
     PRIMARY KEY(userID, arrivingTime, scheduleDate, arrivalOrDeparture),
     FOREIGN KEY(userID) REFERENCES USER_ACCOUNT(userID));
 
