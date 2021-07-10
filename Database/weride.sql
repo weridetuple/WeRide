@@ -67,10 +67,12 @@ CREATE TABLE DRIVE_CARPOOL (
     FOREIGN KEY(driverID) REFERENCES USER_ACCOUNT(userID),
     FOREIGN KEY(carpoolID) REFERENCES CARPOOL(transportationID));
 
+CREATE TYPE requestState AS ENUM ('pending', 'approved', 'denied', 'cancelled');
+
 CREATE TABLE TAKE_CARPOOL (
     passengerID CHAR(16) NOT NULL,
     carpoolID CHAR(16) NOT NULL,
-    approved BOOLEAN,
+    approved requestState,
     timeRequested TIMESTAMP,
     PRIMARY KEY(passengerID, carpoolID),
     FOREIGN KEY(passengerID) REFERENCES USER_ACCOUNT(userID),
@@ -100,7 +102,7 @@ CREATE TABLE SCHEDULE_HAS_PLACE (
     arrivingTime TIME NOT NULL,
     scheduleDate DATE NOT NULL,
     arrivalOrDeparture VARCHAR(9) NOT NULL,
-    PRIMARY KEY(userID, placeID, arrivingTime, arrivalOrDeparture),
+    PRIMARY KEY(userID, placeID, arrivingTime, scheduleDate, arrivalOrDeparture),
     FOREIGN KEY(userID) REFERENCES USER_ACCOUNT(userID),
     FOREIGN KEY(placeID) REFERENCES PLACE(placeID),
     FOREIGN KEY(arrivingTime, scheduleDate, arrivalOrDeparture) REFERENCES SCHEDULE(arrivingTime, scheduleDate, arrivalOrDeparture));
