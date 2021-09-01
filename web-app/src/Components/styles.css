@@ -1,0 +1,64 @@
+
+.weekNameTile {
+    background-color: white;
+    padding: 20px;
+    width: 170px;
+    font-size:large;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #cac5c5;
+}
+
+.weekDayTile {
+    background-color: white;
+    height: 300px;
+    width: 210px;
+    font-size:large;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #cac5c5;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.tileContent {
+    padding: 15px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.stack {
+    background-color: #fbf0f3;
+    height: 100%;
+    width: 100%;
+}
+
+.rideAttributes {
+    border-radius: 5px;
+    padding: 5px;
+    height: auto;
+    width: 300px;
+    background-color: #f1e9ec;
+}
+
+.arrivalDepartureContent {
+    text-align: left;
+}
+
+.timeTextField {
+    width: 60px;
+}
+
+.newRideButton {
+    padding: 20px;
+    text-align: center;
+    height: 80px;
+    border-radius: 50px;
+    background-color: #f1e9ec;
+    position: absolute;
+    top: 35%;
+    
+}
+
+.newRideButton:hover {
+    box-shadow: 2px 2px 4px #cac5c5;
+}

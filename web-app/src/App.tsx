@@ -3,23 +3,20 @@ import { Stack, Text, Link, FontWeights, IStackTokens } from '@fluentui/react';
 import logo from './logo.svg';
 import './App.css';
 import { isConstructorTypeNode } from 'typescript';
-
+import {Day} from './Components/Day';
+import  './Components/styles.css';
+import Home from './Components/Home';
 const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 const stackTokens: IStackTokens = { childrenGap: 15 };
 
 
 
 export const App: React.FunctionComponent = () => {
-  function fetchDummyData()
-  {
-    fetch(process.env.REACT_APP_API+"Test").then(Response => Response.json())
-    .then(data => {
-      return data;
-    })
-  }
-
   return (
+    <div className="stack">
+      <Home/>
     <Stack
+    horizontal={true}
       horizontalAlign="center"
       verticalAlign="center"
       verticalFill
@@ -33,9 +30,12 @@ export const App: React.FunctionComponent = () => {
       }}
       tokens={stackTokens}
     >
-      <div>
-        {fetchDummyData}
-      </div>
+    <Day Day={"Monday"}/>
+    <Day Day={"Tuesday"}/>
+    <Day Day={"Wednesday"}/>
+    <Day Day={"Thursday"}/>
+    <Day Day={"Friday"}/>
     </Stack>
+    </div>
   );
 };
