@@ -5,7 +5,9 @@
   "dependencies": {
     "@fluentui/date-time-utilities": "^8.2.2",
     "@fluentui/react": "^7.175.0",
+    "@fluentui/react-date-time": "^8.1.61",
     "@fluentui/react-hooks": "^8.3.1",
+    "@fluentui/react-icons": "^1.1.138",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
@@ -15,6 +17,7 @@
     "@types/react-dom": "^17.0.3",
     "mobx": "^6.3.3",
     "mobx-react": "^7.2.0",
+    "office-ui-fabric-core": "^11.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
