@@ -9,7 +9,8 @@ import {
     updateCurrentTransportationType,
     addRideToSchedule,
     updateCurrentRideType,
-    updateCurrentRide
+    updateCurrentRide,
+    showPassengerModal
 } from './actions';
 import Store from './store/Store';
 import store from './store/Store';
@@ -54,4 +55,8 @@ mutator(updateCurrentRideType, (actionMessage) => {
 
 mutator(updateCurrentRide, (actionMessage) => {
     store().currentRide = actionMessage.ride;
+})
+
+mutator(showPassengerModal, (actionMessage) => {
+    store().modalState.showPassengerModal = actionMessage.value;
 })

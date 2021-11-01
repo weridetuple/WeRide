@@ -13,8 +13,8 @@ import {
   DayOfWeek,
   mergeStyles,
 } from '@fluentui/react';
-import { RideType, TransportationType } from '../store/schema/RideDetails';
-import { addRideToSchedule, setNewRideModal, updateCurrentDate, updateCurrentRide, updateCurrentRideType, updateCurrentTime, updateCurrentTransportationType } from '../actions';
+import { DriverPassengerState, RideType, TransportationType } from '../store/schema/RideDetails';
+import { addRideToSchedule, findAvailableDrivers, setNewRideModal, updateCurrentDate, updateCurrentRide, updateCurrentRideType, updateCurrentTime, updateCurrentTransportationType } from '../actions';
 
 const stackTokens: IStackTokens = { childrenGap: 15 };
 
@@ -56,6 +56,8 @@ function onBecomeDriverClick() {
 export default observer(function NewDayModal() {
   var hours: string | number = Store().currentRide?.date.getHours().toString();
   var minutes: string | number = Store().currentRide?.date.getMinutes().toString();
+  var drivers = [];
+
   if (Number(hours) > 12) {
     timeOfDay = "PM";
     hours = (Number(hours) - 12).toString();
@@ -66,6 +68,11 @@ export default observer(function NewDayModal() {
 
   if (minutes?.length == 1) {
     minutes = '0' + minutes;
+  }
+
+  function onFindDriverClick() {
+    findAvailableDrivers();
+    drivers.push({ firstName: "Madison", lastName: "Velasquez", userID: "1", email: "Madisonv100@gmail.com", image: "0", role: "Software Engineer Student" })
   }
 
   function updateHours(event: React.FormEvent<HTMLDivElement>, item: any) {
@@ -200,10 +207,13 @@ export default observer(function NewDayModal() {
           />
         </div>
         {Store().currentRide?.transportationType == TransportationType.Carpool &&
-          <PrimaryButton text="Find Drivers" allowDisabledFocus />
+          <PrimaryButton text="Find Drivers" allowDisabledFocus onClick={onFindDriverClick} />
         }
         {Store().currentRide?.transportationType == TransportationType.Drive &&
           <PrimaryButton text="Become a Driver for this Date and Time" onClick={onBecomeDriverClick} />
+        }
+        {drivers.length > 0 &&
+          <div>Hello Drivers</div>
         }
       </Stack>
     </div>

@@ -6,7 +6,7 @@ import { Stack, Text, Link, FontWeights, IStackTokens, Label, PrimaryButton, Def
 import './styles.css';
 import { RideDetails, RideType, TransportationType } from '../store/schema/RideDetails';
 import { ride } from '../Utils/createEmptyRide';
-import { setCurrentRide, setNewRideModal } from '../actions';
+import { setCurrentRide, setNewRideModal, showPassengerModal } from '../actions';
 
 interface DriverDayDetailsProps {
     ride: RideDetails;
@@ -18,6 +18,10 @@ export default observer(function DriverDayDetails(props: DriverDayDetailsProps) 
     function onEditClick() {
         setCurrentRide(props.ride);
         setNewRideModal(true);
+    }
+
+    function onPassengerClick() {
+        showPassengerModal(true);
     }
 
     const stackTokens: IStackTokens = { childrenGap: 15 };
@@ -43,9 +47,7 @@ export default observer(function DriverDayDetails(props: DriverDayDetailsProps) 
                 <Label >Transportation</Label>
                 <div>{props.ride.transportationType == TransportationType.Drive ? 'Drive' : "Carpool"}</div>
             </div>
-            <div className="rideDetails">
-                <Label >{"Passengers" + " (" + props.ride.passenger?.size + ")"}</Label>
-            </div>
+            <DefaultButton className="passengerButton" onClick={onPassengerClick} text={"Passengers" + " (" + props.ride.passenger?.size + ")"} />
             <DefaultButton onClick={onEditClick} text="Edit" />
         </Stack>
     );

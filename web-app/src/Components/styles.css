@@ -59,6 +59,14 @@
 
 }
 
+.passengerDetails {
+    border-radius: 5px;
+    height: auto;
+    width: 100%;
+    background-color: #e8f7f5;
+
+}
+
 .arrivalDepartureContent {
     text-align: left;
 }
@@ -99,5 +107,22 @@
 
 .tupleButton {
     border-radius: 10px;
+}
+
+.passengerButton {
+    border-radius: 5px;
+    background-color: #e8f7f5;
+}
+
+.modalStack {
+    width: 100%;
+    padding: 10px;
+}
+
+.passengerAttributes {
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #ccc!important;
 }
 

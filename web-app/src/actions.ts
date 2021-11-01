@@ -6,6 +6,11 @@ export let setNewRideModal = action(
     (value: boolean) => ({ value: value })
 );
 
+export let showPassengerModal = action(
+    'showPassengerModal',
+    (value: boolean) => ({ value: value })
+);
+
 export let showWeekPicker = action(
     'showWeekPicker',
     (value: boolean) => ({ value: value })
@@ -49,4 +54,8 @@ export let updateCurrentRideType = action(
 export let updateCurrentRide = action(
     'updateCurrentRideType',
     (ride: RideDetails) => ({ ride: ride })
+)
+
+export let findAvailableDrivers = action(
+    'findAvailableDrivers'
 )

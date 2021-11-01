@@ -12,7 +12,9 @@ var Store = createStore<TupleStore>('TupleStore', {
     modalState: {
         createModal: false,
         showWeekPicker: false,
+        showPassengerModal: false,
     },
+    user: null,
     currentDate: new Date(),
     currentRide: {
         rideType: RideType.Arrivel,
@@ -29,6 +31,7 @@ var Store = createStore<TupleStore>('TupleStore', {
         addDays(fday, 4),
     ],
     rides: [],
+    availableDrivers: [],
 });
 
 

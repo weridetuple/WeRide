@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css';
 import store from '../store/Store';
-import { showWeekPicker } from './../actions';
+import { showPassengerModal, showWeekPicker } from './../actions';
 import { observer } from 'mobx-react';
 import { Modal } from '@fluentui/react';
 import { setNewRideModal, setCurrentWeek } from './../actions';
@@ -21,6 +21,7 @@ import {
 } from '@fluentui/react';
 import Store from '../store/Store';
 import { Image, IImageProps, ImageFit } from '@fluentui/react/lib/Image';
+import PassengerModal from './PassengerModal';
 
 const stackTokens: IStackTokens = { childrenGap: 15 };
 const imageProps: IImageProps = {
@@ -40,6 +41,10 @@ export default observer(function Home() {
 
     function onDismissWeekModal(ev: any) {
         showWeekPicker(false);
+    }
+
+    function onDismissPassengerModal(ev: any) {
+        showPassengerModal(false);
     }
 
     function onCalendarClick(ev: any) {
@@ -73,6 +78,15 @@ export default observer(function Home() {
                     isBlocking={false}
                 >
                     <NewDayModal />
+                </Modal>
+            )}
+            {store().modalState.showPassengerModal && (
+                <Modal
+                    isOpen={store().modalState.showPassengerModal}
+                    onDismiss={onDismiss}
+                    isBlocking={true}
+                >
+                    <PassengerModal />
                 </Modal>
             )}
             {store().modalState.showWeekPicker &&
