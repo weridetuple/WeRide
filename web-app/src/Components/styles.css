@@ -15,9 +15,18 @@
     font-size:large;
     border-radius: 10px;
     box-shadow: 5px 5px 10px #cac5c5;
+}
+
+.weekDayTileContent {
+    padding: 20px;
+}
+
+.weekDayTileTimeLabel {
+    height: 100%;
+    width: 100%;
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: end;
 }
 
 .tileContent {
@@ -37,7 +46,25 @@
     padding: 5px;
     height: auto;
     width: 300px;
-    background-color: #f1e9ec;
+    background-color: #e8f7f5;
+
+}
+
+.rideDetails {
+    border-radius: 5px;
+    padding: 5px;
+    height: auto;
+    width: 170px;
+    background-color: #e8f7f5;
+
+}
+
+.passengerDetails {
+    border-radius: 5px;
+    height: auto;
+    width: 100%;
+    background-color: #e8f7f5;
+
 }
 
 .arrivalDepartureContent {
@@ -53,12 +80,49 @@
     text-align: center;
     height: 80px;
     border-radius: 50px;
-    background-color: #f1e9ec;
-    position: absolute;
-    top: 35%;
-    
+    background-color: #31bba7;
+    border: #1AB39D;
+    color: white;
+    font-size: x-large;
+}
+
+.newRideButtonContainer {
+    padding-top: 50%;
 }
 
 .newRideButton:hover {
+    background-color: #8dd9ce;
     box-shadow: 2px 2px 4px #cac5c5;
+    color: white;
 }
+
+.datePickerHeader {
+    background-color: white;
+    padding: 20px;
+    width: 100%;
+    font-size:large;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #cac5c5;
+}
+
+.tupleButton {
+    border-radius: 10px;
+}
+
+.passengerButton {
+    border-radius: 5px;
+    background-color: #e8f7f5;
+}
+
+.modalStack {
+    width: 100%;
+    padding: 10px;
+}
+
+.passengerAttributes {
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #ccc!important;
+}
+
