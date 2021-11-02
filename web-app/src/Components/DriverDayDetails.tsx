@@ -12,7 +12,6 @@ interface DriverDayDetailsProps {
     ride: RideDetails;
 }
 
-
 export default observer(function DriverDayDetails(props: DriverDayDetailsProps) {
 
     function onEditClick() {
