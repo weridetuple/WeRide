@@ -51,8 +51,6 @@ function onBecomeDriverClick() {
   addRideToSchedule(Store().currentRide);
 }
 
-
-
 export default observer(function NewDayModal() {
   var hours: string | number = Store().currentRide?.date.getHours().toString();
   var minutes: string | number = Store().currentRide?.date.getMinutes().toString();

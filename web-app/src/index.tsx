@@ -1,10 +1,13 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './App';
 import { mergeStyles } from '@fluentui/react';
 import reportWebVitals from './reportWebVitals';
 import { initializeIcons } from '@fluentui/font-icons-mdl2';
 import { loadTheme } from 'office-ui-fabric-react';
+import { Auth0Provider } from '@auth0/auth0-react';
+import NavBar from './Components/NavBar';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import * as dotenv from "dotenv";
 
 loadTheme({
   palette: {
@@ -44,7 +47,19 @@ mergeStyles({
   },
 });
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// Load dotenv
+dotenv.config({path: '../.env'});
+
+ReactDOM.render(
+  <Auth0Provider
+    domain={process.env.REACT_APP_AUTH0_DOMAIN!}
+    clientId={process.env.REACT_APP_AUTH0_CLIENT_ID!}
+    redirectUri={window.location.origin}
+  >
+    <NavBar />
+    <App />
+  </Auth0Provider>,
+  document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
