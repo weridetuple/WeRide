@@ -22,6 +22,13 @@ const NavBar = () => {
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <Container>
                     <Navbar.Brand href="#home">
+                        <img
+                            alt=""
+                            src="/assets/brand-only.png"
+                            width="30"
+                            height="30"
+                            className="d-inline-block align-top"
+                        />{' '}
                         tuple
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
