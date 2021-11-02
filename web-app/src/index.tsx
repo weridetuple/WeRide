@@ -5,6 +5,10 @@ import { mergeStyles } from '@fluentui/react';
 import reportWebVitals from './reportWebVitals';
 import { initializeIcons } from '@fluentui/font-icons-mdl2';
 import { loadTheme } from 'office-ui-fabric-react';
+import { Auth0Provider } from '@auth0/auth0-react';
+import NavBar from './Components/NavBar';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 loadTheme({
   palette: {
@@ -44,7 +48,16 @@ mergeStyles({
   },
 });
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <Auth0Provider
+    domain="tuplerideshare.us.auth0.com"
+    clientId="O0MFjcN6uQfeVvRldEAVjPJPWeBFpWbL"
+    redirectUri={window.location.origin}
+  >
+    <NavBar />
+    <App />
+  </Auth0Provider>,
+  document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
