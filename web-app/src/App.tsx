@@ -1,8 +1,6 @@
 import React from 'react';
 import { Stack, Text, Link, FontWeights, IStackTokens } from '@fluentui/react';
-import logo from './logo.svg';
 import './App.css';
-import { isConstructorTypeNode } from 'typescript';
 import './Components/styles.css';
 import Home from './Components/Home';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -15,8 +13,6 @@ export const App: React.FunctionComponent = () => {
     isAuthenticated,
     error,
     user,
-    loginWithRedirect,
-    logout,
   } = useAuth0<{ name: string }>();
 
   if (isLoading) {

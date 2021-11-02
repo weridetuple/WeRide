@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './App';
 import { mergeStyles } from '@fluentui/react';
@@ -8,7 +7,7 @@ import { loadTheme } from 'office-ui-fabric-react';
 import { Auth0Provider } from '@auth0/auth0-react';
 import NavBar from './Components/NavBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import * as dotenv from "dotenv";
 
 loadTheme({
   palette: {
@@ -48,10 +47,13 @@ mergeStyles({
   },
 });
 
+// Load dotenv
+dotenv.config({path: '../.env'});
+
 ReactDOM.render(
   <Auth0Provider
-    domain="tuplerideshare.us.auth0.com"
-    clientId="O0MFjcN6uQfeVvRldEAVjPJPWeBFpWbL"
+    domain={process.env.REACT_APP_AUTH0_DOMAIN!}
+    clientId={process.env.REACT_APP_AUTH0_CLIENT_ID!}
     redirectUri={window.location.origin}
   >
     <NavBar />
